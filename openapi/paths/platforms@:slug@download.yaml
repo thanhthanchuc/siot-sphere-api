@@ -1,0 +1,32 @@
+get:
+  summary: Get newest version information
+  description: 'Device with slug is :slug can be get newest version information'
+  security:
+    - DeviceBearerAuth: []
+  parameters:
+    - in: path
+      name: slug
+      description: Device slug name
+      schema:
+        type: string
+      required: true
+  responses:
+    '200':
+      description: Return newest version object
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+              - $ref: ../components/schemas/Device.yaml
+              - type: object
+                properties:
+                  user:
+                    type: object
+                    $ref: ../components/schemas/User.yaml
+                  platformVersion:
+                    $ref: ../components/schemas/PlatformVersion.yaml
+                  attributes:
+                    type: array
+                    items:
+                      $ref: ../components/schemas/Attribute.yaml

@@ -1,0 +1,26 @@
+post:
+  summary: Edit an user
+  description: Edit an user and return that user
+  security:
+    - AdminBearerAuth: []
+  parameters:
+    - in: path
+      name: id
+      required: true
+      description: The edit user's id
+      schema:
+        type: string
+  requestBody:
+    description: User to edit
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/User.yaml
+  responses:
+    '200':
+      description: The edited user
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/User.yaml

@@ -1,0 +1,89 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: SIoT Sphere API References
+  description: Specification for APIs in SIoT Sphere Backend
+  contact:
+    name: Nguyễn Thành
+    email: thanhthanchuc@gmail.com
+    url: 'https://facebook.com/thanhthanchuc'
+servers:
+  - url: 'http://siot.techlinkvn.com/api'
+    description: Staging
+  - url: 'https://siot.techlinkvn.com/api'
+paths:
+  /users:
+    $ref: paths/users.yaml
+  '/users/{id}':
+    $ref: 'paths/users@{id}.yaml'
+  '/users/{id}/edit':
+    $ref: 'paths/users@{id}@edit.yaml'
+  '/users/{id}/deactive':
+    $ref: 'paths/users@{id}@deactive.yaml'
+  /slug/suggest:
+    $ref: paths/slug@suggest.yaml
+  /slug/verify:
+    $ref: paths/slug@verify.yaml
+  /banners:
+    $ref: paths/banners.yaml
+  '/banners/{id}':
+    $ref: 'paths/banners@{id}.yaml'
+  /auth/login:
+    $ref: paths/auth@login.yaml
+  /auth/me:
+    $ref: paths/auth@me.yaml
+  /auth/logout:
+    $ref: paths/auth@logout.yaml
+  /auth/register:
+    $ref: paths/auth@register.yaml
+  /devices:
+    $ref: paths/devices.yaml
+  '/devices/{slug}':
+    $ref: 'paths/devices@{slug}.yaml'
+  '/devices/{slug}/new':
+    $ref: 'paths/devices@{slug}@new.yaml'
+  '/devices/{deviceSlug}/attributes/{attributeSlug}':
+    $ref: 'paths/devices@{deviceSlug}@attributes@{attributeSlug}.yaml'
+  '/devices/{deviceSlug}/attributes/{attributeSlug}/old-datas':
+    $ref: 'paths/devices@{deviceSlug}@attributes@{attributeSlug}@old-datas.yaml'
+  '/devices/{deviceSlug}/attributes/{attributeSlug}/frequently':
+    $ref: 'paths/devices@{deviceSlug}@attributes@{attributeSlug}@frequently.yaml'
+  '/devices/{deviceSlug}/attributes/{attributeSlug}/filter':
+    $ref: 'paths/devices@{deviceSlug}@attributes@{attributeSlug}@filter.yaml'
+  '/devices/{deviceSlug}/attributes/{attributeSlug}/paging':
+    $ref: 'paths/devices@{deviceSlug}@attributes@{attributeSlug}@paging.yaml'
+  '/attributes/{slug}':
+    $ref: 'paths/attributes@{slug}.yaml'
+  '/attributes/{id}':
+    $ref: 'paths/attributes@{id}.yaml'
+  /platforms:
+    $ref: paths/platforms.yaml
+  '/platforms/{id}':
+    $ref: 'paths/platforms@{id}.yaml'
+  /platforms/verify-key:
+    $ref: paths/platforms@verify-key.yaml
+  '/platforms/:slug/verify':
+    $ref: 'paths/platforms@:slug@verify.yaml'
+  '/platforms/:slug/download':
+    $ref: 'paths/platforms@:slug@download.yaml'
+  '/platforms/:slug/binary-download':
+    $ref: 'paths/platforms@:slug@binary-download.yaml'
+  '/platforms/:slug/update-key':
+    $ref: 'paths/platforms@:slug@update-key.yaml'
+components:
+  securitySchemes:
+    DeviceBearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Device Bearer Token
+    UserBearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: User Bearer Token
+    AdminBearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Admin Bearer Token

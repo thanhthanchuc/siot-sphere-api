@@ -1,0 +1,9 @@
+post:
+  summary: Logout (optional)
+  description: Logout API to clear device token
+  security:
+    - AdminBearerAuth: []
+    - UserBearerAuth: []
+  responses:
+    '200':
+      description: Clear success

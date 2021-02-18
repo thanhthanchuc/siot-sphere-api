@@ -1,0 +1,43 @@
+post:
+  summary: Create new attribute value
+  description: Save new attribute value of attribute with attributeSlug name into database
+  security:
+    - DeviceBearerAuth: []
+  parameters:
+    - in: path
+      name: deviceSlug
+      required: true
+      description: Device slug name
+      schema:
+        type: string
+    - in: path
+      name: attributeSlug
+      required: true
+      description: Attribute slug name
+      schema:
+        type: string
+  requestBody:
+    required: true
+    description: Data to save
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            value:
+              type: string
+              enum:
+                - FLOAT
+                - INTEGER
+                - BIT
+                - STRING
+  responses:
+    '200':
+      description: The inserted value
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: ../components/schemas/AttributeValue.yaml
+    '400':
+      description: Bad request

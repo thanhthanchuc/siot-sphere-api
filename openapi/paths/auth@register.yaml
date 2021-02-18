@@ -1,0 +1,41 @@
+post:
+  summary: Register new user
+  description: Register new user for End-Client
+  requestBody:
+    description: Body of request
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+            firstName:
+              type: string
+            lastName:
+              type: string
+            password:
+              type: string
+              minLength: 6
+          required:
+            - email
+            - password
+            - firstName
+            - lastName
+  responses:
+    '200':
+      description: Register success
+      content:
+        application/json:
+          schema:
+            properties:
+              user:
+                type: object
+                $ref: ../components/schemas/User.yaml
+              accessToken:
+                type: string
+              deviceSignToken:
+                type: string
+    '400':
+      description: Email exist or something invalid

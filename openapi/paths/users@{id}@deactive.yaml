@@ -1,0 +1,35 @@
+post:
+  summary: Activate or Deactivate user with reason
+  description: Deactive or Reactive user with given id
+  security:
+    - AdminBearerAuth: []
+  parameters:
+    - in: path
+      name: id
+      required: true
+      description: The edit user's id
+      schema:
+        type: string
+  requestBody:
+    description: User to edit
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: boolean
+              description: Specific this user is in active or not
+            reason:
+              type: string
+              description: Reason if this action is deactive
+          required:
+            - status
+  responses:
+    '200':
+      description: Updated user
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/User.yaml

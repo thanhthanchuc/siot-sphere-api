@@ -1,0 +1,26 @@
+post:
+  summary: Verify a slug name
+  description: Verify a slug name with giving valid slug paterm
+  requestBody:
+    required: true
+    description: Body of request
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              description: String to verify
+          required:
+            - name
+  responses:
+    '200':
+      description: 'Verify result. If verify is true, that slug can be use'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              verify:
+                type: boolean

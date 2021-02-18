@@ -1,0 +1,46 @@
+post:
+  summary: Save old data
+  description: Save old data of attribute with given attributeSlug name into database
+  security:
+    - AdminBearerAuth: []
+    - UserBearerAuth: []
+  parameters:
+    - in: path
+      name: deviceSlug
+      required: true
+      description: Device slug name
+      schema:
+        type: string
+    - in: path
+      name: attributeSlug
+      required: true
+      description: Attribute slug name
+      schema:
+        type: string
+  requestBody:
+    required: true
+    description: Array of data to save
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                enum:
+                  - FLOAT
+                  - INTEGER
+                  - BIT
+                  - STRING
+              createdAt:
+                type: string
+  responses:
+    '200':
+      description: Array of inserted value
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: ../components/schemas/AttributeValue.yaml

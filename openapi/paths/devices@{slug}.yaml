@@ -1,0 +1,79 @@
+get:
+  summary: Get single device information
+  description: Get a device information by slug name.
+  security:
+    - AdminBearerAuth: []
+    - UserBearerAuth: []
+  parameters:
+    - in: path
+      name: slug
+      required: true
+      description: Device slug name
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Device with given slug name
+delete:
+  summary: Delete single version
+  description: Delete a platform version with given slug name
+  security:
+    - AdminBearerAuth: []
+    - UserBearerAuth: []
+  parameters:
+    - in: path
+      name: id
+      required: true
+      description: Version id
+      schema:
+        type: number
+  responses:
+    '200':
+      description: Delete success
+post:
+  summary: Update device information
+  description: Update device information with given slug name
+  security:
+    - AdminBearerAuth: []
+    - UserBearerAuth: []
+  parameters:
+    - in: path
+      name: slug
+      required: true
+      description: Device slug name
+      schema:
+        type: string
+  requestBody:
+    required: true
+    description: Information to update
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            image:
+              type: string
+            allowAutoUpdate:
+              type: boolean
+  responses:
+    '200':
+      description: The updated device
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+              - $ref: ../components/schemas/Device.yaml
+              - type: object
+                properties:
+                  user:
+                    type: object
+                    $ref: ../components/schemas/User.yaml
+                  platformVersion:
+                    $ref: ../components/schemas/PlatformVersion.yaml
+                  attributes:
+                    type: array
+                    items:
+                      $ref: ../components/schemas/Attribute.yaml

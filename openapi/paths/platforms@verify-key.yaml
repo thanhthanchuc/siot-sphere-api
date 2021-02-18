@@ -1,0 +1,21 @@
+post:
+  summary: Verify a key have exist or not
+  description: Verify a version key with given correct format string
+  security:
+    - DeviceBearerAuth: []
+  requestBody:
+    description: Body of request
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            value:
+              type: string
+  responses:
+    '200':
+      description: Verify result that available will be true
+      content:
+        application/json:
+          schema:
+            type: boolean

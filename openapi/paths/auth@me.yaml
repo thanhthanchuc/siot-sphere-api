@@ -1,0 +1,21 @@
+get:
+  summary: Query information of current user
+  description: Get current user information with given accessToken
+  security:
+    - AdminBearerAuth: []
+    - UserBearerAuth: []
+  responses:
+    '200':
+      description: Current user information
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+              - $ref: '#components/schemas/User'
+              - type: object
+                properties:
+                  devices:
+                    type: array
+                    items:
+                      $ref: ../components/schemas/Device.yaml

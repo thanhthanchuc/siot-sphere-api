@@ -1,0 +1,42 @@
+get:
+  summary: Verify device can be auto update
+  description: 'Verify device with slug is :slug can be auto update'
+  security:
+    - DeviceBearerAuth: []
+  parameters:
+    - in: path
+      name: slug
+      description: Device slug name
+      schema:
+        type: string
+      required: true
+  responses:
+    '200':
+      description: Return object have current version of device and auto update status
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              currentVersion:
+                type: object
+                allOf:
+                  - $ref: ../components/schemas/PlatformVersion.yaml
+                  - type: object
+                    properties:
+                      medias:
+                        type: array
+                        items:
+                          $ref: ../components/schemas/PlatformMedia.yaml
+              isNewestVersion:
+                type: number
+                enum:
+                  - 0
+                  - 1
+              newestVersionKey:
+                type: string
+              allowUpdate:
+                type: number
+                enum:
+                  - 0
+                  - 1

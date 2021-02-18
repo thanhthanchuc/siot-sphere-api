@@ -1,0 +1,89 @@
+get:
+  summary: Get single platform version
+  description: Get a version by given id
+  security:
+    - AdminBearerAuth: []
+    - UserBearerAuth: []
+  parameters:
+    - in: path
+      name: id
+      required: true
+      description: Version id
+      schema:
+        type: number
+  responses:
+    '200':
+      description: Version with given id
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+              - $ref: ../components/schemas/PlatformVersion.yaml
+              - type: object
+                properties:
+                  user:
+                    type: object
+                    $ref: ../components/schemas/User.yaml
+                  medias:
+                    type: array
+                    items:
+                      $ref: ../components/schemas/PlatformMedia.yaml
+put:
+  summary: Edit single version
+  description: Edit a version by given id
+  security:
+    - AdminBearerAuth: []
+    - UserBearerAuth: []
+  parameters:
+    - in: path
+      name: id
+      required: true
+      description: Version id
+      schema:
+        type: number
+  requestBody:
+    required: true
+    description: The edit version object
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            description:
+              type: string
+            name:
+              type: string
+            releaseType:
+              type: string
+              description: Type of release
+              enum:
+                - BETA
+                - STABLE
+            medias:
+              type: array
+              items:
+                type: object
+                properties:
+                  fileName:
+                    type: string
+                  filePath:
+                    type: string
+  responses:
+    '200':
+      description: The edited version
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+              - $ref: ../components/schemas/PlatformVersion.yaml
+              - type: object
+                properties:
+                  user:
+                    type: object
+                    $ref: ../components/schemas/User.yaml
+                  medias:
+                    type: array
+                    items:
+                      $ref: ../components/schemas/PlatformMedia.yaml

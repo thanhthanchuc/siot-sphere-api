@@ -1,0 +1,33 @@
+post:
+  summary: Suggest a slug url name
+  description: Auto suggest a slug url name with given input string
+  requestBody:
+    required: true
+    description: Body of request
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Input string
+            type:
+              type: string
+              enum:
+                - DEVICE
+                - ATTRIBUTE
+          required:
+            - name
+            - type
+  responses:
+    '200':
+      description: The suggested slug
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              slug:
+                type: string
+                description: Result

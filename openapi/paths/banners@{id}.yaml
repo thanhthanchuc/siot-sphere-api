@@ -1,0 +1,16 @@
+delete:
+  summary: Delete device avatar with given id
+  description: Admin delete device avatar with given id
+  security:
+    - AdminBearerAuth: []
+  parameters:
+    - in: path
+      name: id
+      required: true
+      description: Id of object to delete
+      schema:
+        type: number
+  responses:
+    '200':
+      description: Delete success
+  deprecated: false

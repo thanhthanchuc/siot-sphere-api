@@ -1,0 +1,106 @@
+get:
+  summary: Gets some platform versions
+  description: >-
+    Returns an array include a list containing platform version of current user
+    (all user if current user is admin) and total record, support paging
+  security:
+    - AdminBearerAuth: []
+    - UserBearerAuth: []
+  parameters:
+    - $ref: ../components/parameters/limit.yaml
+    - $ref: ../components/parameters/page.yaml
+  responses:
+    '200':
+      description: An array include a list containing platform version  and total record
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              oneOf:
+                - type: array
+                  items:
+                    allOf:
+                      - $ref: ../components/schemas/PlatformVersion.yaml
+                      - type: object
+                        properties:
+                          user:
+                            type: array
+                            items:
+                              $ref: ../components/schemas/User.yaml
+                      - type: object
+                        properties:
+                          medias:
+                            type: array
+                            items:
+                              $ref: ../components/schemas/PlatformMedia.yaml
+                - type: number
+post:
+  summary: Create new platform version
+  description: Create new version and return that version
+  security:
+    - AdminBearerAuth: []
+    - UserBearerAuth: []
+  requestBody:
+    description: The version to create.
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Version name
+            description:
+              type: string
+              description: Description of version
+            releaseType:
+              type: string
+              description: Type of release
+              enum:
+                - BETA
+                - STABLE
+            releaseKey:
+              type: string
+              description: Key of release version
+              uniqueItems: true
+            medias:
+              type: array
+              description: Release archives
+              items:
+                type: object
+                properties:
+                  fileName:
+                    type: string
+                    description: File name
+                  filePath:
+                    type: string
+                    description: Url to file
+                required:
+                  - fileName
+                  - filePath
+          required:
+            - name
+            - description
+            - releaseType
+            - releaseKey
+            - medias
+  responses:
+    '200':
+      description: Created version
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+              - $ref: ../components/schemas/PlatformVersion.yaml
+              - type: object
+                properties:
+                  user:
+                    type: object
+                    $ref: ../components/schemas/User.yaml
+                  medias:
+                    type: array
+                    items:
+                      $ref: ../components/schemas/PlatformMedia.yaml

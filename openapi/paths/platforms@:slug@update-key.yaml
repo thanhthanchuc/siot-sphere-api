@@ -1,0 +1,32 @@
+post:
+  summary: Update version key of device
+  description: 'Device with :slug name can be update version in server'
+  security:
+    - DeviceBearerAuth: []
+  parameters:
+    - in: path
+      name: slug
+      description: Device slug name
+      schema:
+        type: string
+      required: true
+  requestBody:
+    description: Body of request
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            image:
+              type: string
+            allowAutoUpdate:
+              type: boolean
+  responses:
+    '200':
+      description: Return device information with releaseKey version
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Device.yaml

@@ -1,0 +1,65 @@
+get:
+  summary: Gets some users
+  description: 'Returns an array contain a list of users and total record, support paging'
+  parameters:
+    - $ref: ../components/parameters/limit.yaml
+    - $ref: ../components/parameters/page.yaml
+    - $ref: ../components/parameters/email.yaml
+  security:
+    - AdminBearerAuth: []
+  responses:
+    '200':
+      description: Returns an array contain a list of users and total record
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              oneOf:
+                - type: array
+                  items:
+                    allOf:
+                      - $ref: ../components/schemas/User.yaml
+                      - type: object
+                        properties:
+                          devices:
+                            type: array
+                            items:
+                              $ref: ../components/schemas/Device.yaml
+                - type: number
+post:
+  summary: Create new user
+  description: Add a new user and return the that user
+  requestBody:
+    description: The user to create.
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            firstName:
+              type: string
+              description: Fist name of user
+            lastName:
+              type: string
+              description: Last name of user
+            email:
+              type: string
+              description: 'Email of user, use for login'
+              uniqueItems: true
+            password:
+              type: string
+              description: 'User password, use for login'
+          required:
+            - firstName
+            - lastName
+            - email
+            - password
+  responses:
+    '200':
+      description: The created user
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/User.yaml

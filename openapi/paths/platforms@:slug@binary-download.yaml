@@ -1,0 +1,21 @@
+get:
+  summary: Get binary of version file (.bin only)
+  description: >-
+    Device with slug is :slug can be call this API to get binary of .bin file in
+    release archives
+  security:
+    - DeviceBearerAuth: []
+  parameters:
+    - in: path
+      name: slug
+      description: Device slug name
+      schema:
+        type: string
+      required: true
+  responses:
+    '200':
+      description: Binary of file
+      content:
+        application/json:
+          schema:
+            type: string

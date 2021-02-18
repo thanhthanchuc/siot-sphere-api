@@ -1,0 +1,54 @@
+get:
+  summary: Get frequently data value
+  description: >-
+    Get frequently data value of attribute with given attributeSlug name,
+    support date range
+  security:
+    - AdminBearerAuth: []
+    - UserBearerAuth: []
+  parameters:
+    - in: path
+      name: deviceSlug
+      required: true
+      description: Device slug name
+      schema:
+        type: string
+    - in: path
+      name: attributeSlug
+      required: true
+      description: Attribute slug name
+      schema:
+        type: string
+    - in: query
+      name: from
+      description: >-
+        Date from (support datatime, timestamp without timezone, timestamp with
+        timezone)
+      schema:
+        type: string
+    - in: query
+      name: to
+      description: >-
+        Date to (support datatime, timestamp without timezone, timestamp with
+        timezone)
+      schema:
+        type: string
+  responses:
+    '200':
+      description: The response with array of unique value and its frequency of occurrence
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                value:
+                  type: string
+                  enum:
+                    - FLOAT
+                    - INTEGER
+                    - BIT
+                    - STRING
+                count:
+                  type: number

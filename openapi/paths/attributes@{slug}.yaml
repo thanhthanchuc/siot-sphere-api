@@ -1,0 +1,20 @@
+get:
+  summary: Get attribute information (low security)
+  description: 'Get attribute information with given slug name, only authentication required'
+  security:
+    - AdminBearerAuth: []
+    - UserBearerAuth: []
+  parameters:
+    - in: path
+      name: id
+      required: true
+      description: The attribute id
+      schema:
+        type: number
+  responses:
+    '200':
+      description: The attribute information
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Attribute.yaml

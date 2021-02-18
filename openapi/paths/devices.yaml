@@ -1,0 +1,22 @@
+get:
+  summary: Get list device of current user
+  description: Get list device of current loged in user
+  security:
+    - AdminBearerAuth: []
+    - UserBearerAuth: []
+  responses:
+    '200':
+      description: List all device
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              allOf:
+                - $ref: ../components/schemas/Device.yaml
+                - type: object
+                  properties:
+                    attributes:
+                      type: array
+                      items:
+                        $ref: ../components/schemas/Attribute.yaml

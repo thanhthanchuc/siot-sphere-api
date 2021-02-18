@@ -1,0 +1,39 @@
+post:
+  summary: Update attribute information (low security)
+  description: 'Update attributei information with given id, only authentication required'
+  security:
+    - AdminBearerAuth: []
+    - UserBearerAuth: []
+  parameters:
+    - in: path
+      name: id
+      required: true
+      description: The attribute id
+      schema:
+        type: number
+  requestBody:
+    description: The field to update
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Attribute.yaml
+  responses:
+    '200':
+      description: The updated attribute
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Attribute.yaml
+delete:
+  summary: Delete attribute (low security)
+  description: 'Delete attribute with given id, only authentication required'
+  parameters:
+    - in: path
+      name: id
+      required: true
+      description: The attribute id
+      schema:
+        type: number
+  responses:
+    '200':
+      description: Deleted successfully

@@ -1,0 +1,25 @@
+get:
+  summary: Get a user
+  description: Return single of user for its id
+  parameters:
+    - in: path
+      name: id
+      required: true
+      description: The user's id
+      schema:
+        type: string
+  responses:
+    '200':
+      description: A User
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+              - $ref: '#components/schemas/User'
+              - type: object
+                properties:
+                  devices:
+                    type: array
+                    items:
+                      $ref: ../components/schemas/Device.yaml

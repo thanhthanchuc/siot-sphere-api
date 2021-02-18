@@ -1,0 +1,44 @@
+post:
+  summary: Create new device attribute
+  description: Create new attribute for device with given slug name
+  security:
+    - AdminBearerAuth: []
+    - UserBearerAuth: []
+  parameters:
+    - in: path
+      name: slug
+      required: true
+      description: Device slug name
+      schema:
+        type: string
+  requestBody:
+    required: true
+    description: New attribute information
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            slug:
+              type: string
+            dataLabel:
+              type: string
+            dataType:
+              type: string
+              enum:
+                - FLOAT
+                - INTEGER
+                - BIT
+                - STRING
+  responses:
+    '200':
+      description: The new attribute after inserted
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              oneOf:
+                - $ref: Model/Attribute.yml#/Attribute
